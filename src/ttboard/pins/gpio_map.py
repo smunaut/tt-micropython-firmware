@@ -319,7 +319,8 @@ class GPIOMapTT06(GPIOMapBase):
             'uo_out3': cls.UO_OUT3
         })
 
-        retDict['cinc'], retDict['ncrst'] = retDict['ncrst'], retDict['cinc']
+        if cls.tt07_cb_fix:
+            retDict['cinc'], retDict['ncrst'] = retDict['ncrst'], retDict['cinc']
 
         return retDict
 
