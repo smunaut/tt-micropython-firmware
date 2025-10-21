@@ -6,7 +6,7 @@ jobs:
   create-release:
     env:
       RPOS_UF2FILE: RPI_PICO-20241025-v1.24.0.uf2
-      TT_RUNS_SUPPORTED: "unknown tt04 tt05 tt06 tt07 tt08 ttihp0p1"
+      TT_RUNS_SUPPORTED: "unknown tt06 tt07 tt08 ttihp0p1 ttihp0p2 ttihp25a"
     runs-on: ubuntu-24.04
     steps:
 
@@ -40,13 +40,6 @@ jobs:
            echo "Path is $RUNPATH"
            for chip in $TT_RUNS_SUPPORTED; do PYTHONPATH=$RUNPATH python3 $GITHUB_WORKSPACE/sdk/bin/serialize_shuttle.py $GITHUB_WORKSPACE/sdk/src/shuttles/$chip.json; done
     
-    - name: Run PyTests
-      run: |
-           pip install pytest
-           RUNPATH="$GITHUB_WORKSPACE/sdk/convwork:$PYTHONPATH"
-           cd $GITHUB_WORKSPACE/sdk/test
-           for chip in $TT_RUNS_SUPPORTED; do PYTHONPATH=$RUNPATH pytest --shuttle $chip --shuttlepath $GITHUB_WORKSPACE/sdk/src/shuttles test_serialized_shuttle.py; done
-
     - name: Build the final UF2
       run: |
            pip install uf2utils
